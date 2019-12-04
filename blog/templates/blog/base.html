@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <!-- this is an icon library, we will load it for icons for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- icon library ends here  --> 
+	{% if title %}
+		<title>Django Blog - {{ title }} </title>
+	{% else %}
+		<title>Django Blog</title>
+	{% endif %}
+</head>
+<body>
+
+	<!-- this is navigation bar which is navigation.html -->
+	<header class="site-header">
+  	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    	<div class="container">
+      	<a class="navbar-brand mr-4" src="{% url 'blog-home' %}"><h2 class="blogname">InsideShort</h2></a>
+      		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      	<span class="navbar-toggler-icon"></span>
+      		</button>
+
+      <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+        
+          <a class="nav-item nav-link " href="{% url 'blog-home' %}" ><i class="fa fa-fw fa-home"></i>Home</a>
+        
+          <a class="nav-item nav-link " href="{% url 'blog-about' %}"><i class="fa fa-fw fa-info-circle"></i>About Us</a>
+        
+          <a class="nav-item nav-link" href="{% url 'blog-contact'%}"><i class="fa fa-fw fa-envelope"></i>Contact</a>
+                
+          </div>
+    </div>
+
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav">
+          {% if user.is_authenticated %}
+
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}" ><i class="fa fa-plus"></i>New Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}" ><i class="fa fa-sign-out"></i>Logout</a>
+
+          {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fa fa-fw fa-sign-in"></i><b>Login</b></a>
+            <a class="nav-item nav-link" href="{% url 'register' %}"><i class="fa fa-fw fa-registered"></i><b>Register</b></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+	<!-- End of navigation bar-->
+<br>
+	<!--   this is main.html which contain main cotent and side bar -->
+	<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      
+      {% block content %}
+
+      {% endblock content %}
+      
+    </div>
+    <div class="col-md-4">
+      <div class="content-section">
+        <h3>Our Sidebar</h3>
+         <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
+        <p class='text-muted'>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-light"> <a style="color:#0B5345; font-size:20px;" href="{% url 'blog-home' %}">Latest Posts</a></li>
+            <li class="list-group-item list-group-item-light"><a style="color:#0B5345; font-size:20px;" href="{% url 'blog-announce' %}">Announcements</li>
+            <li class="list-group-item list-group-item-light"><a style="color:#0B5345; font-size:20px;" href="{% url 'blog-calender' %}">Calendars</li>
+            <li class="list-group-item list-group-item-light"><a style="color:#0B5345; font-size:20px;">More is coming</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- this is footer code -->
+
+<!-- Footer -->
+<footer class="page-footer font-small blue-grey lighten-5">
+
+  <div style="background-color: #1B2631;">
+    <div class="container">
+
+      <!-- Grid row-->
+      <div class="row py-4 d-flex align-items-center">
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-12 text-center text-md-left mb-4 mb-md-0">
+          <h5 class="h5-footer" style="background-color:#1B2631;">Get connected with us on social networks!</h5>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+          <!-- Facebook -->
+          <a class="facebook-icon">
+            <i class="fa fa-facebook-f white-text mr-4" style="color:#ffffff;"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fa fa-twitter white-text mr-4" style="color:#ffffff;"> </i>
+          </a>
+          <!-- Google +-->
+          <a class="gplus-ic">
+            <i class="fa fa-google-plus white-text mr-4" style="color:#ffffff;"> </i>
+          </a>
+          <!--Linkedin -->
+          <a class="li-ic">
+            <i class="fa fa-linkedin white-text mr-4" style="color:#ffffff;"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fa fa-instagram white-text" style="color:#ffffff;"> </i>
+          </a>
+
+        </div>
+        <!-- Grid column -->
+        <hr class="new4">
+
+      </div>
+      <!-- Grid row-->
+        
+    </div>
+  </div>
+
+  <!-- Footer Links -->
+  <div class="container-expand-md text-center text-md-left "  > 
+      
+    <!-- Grid row -->
+    <div class="row mt-8" style="background-color:#1B2631" >
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-4 col-xl-3 mb-2 ml-4">
+
+        <!-- Content -->
+        <h6-footer class=" font-size-17px"></h6>
+        <h5 class="text-capitalize font-weight-bold">About Us</h5>
+         <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width:300px;">
+        
+<p align = "justify">Welcome to InsideShort, your number one source for all trending news. We're dedicated to giving you the very best of inforrmation with a focus on  dependability, customer service and &nbsp;<a style="color:#ffffff; font-size:17px;" href="{% url 'blog-about' %}">
+more..</a></p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6-footer class="text-capitalize"></h6>
+        <h5 class="text-capitalize font-weight-bold">Useful links</h5>
+        
+         <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width:300px;"">
+        {% if user.is_authenticated %}
+        
+            <p>
+            <a style="color:#16A085; font-size:17px;" href="{% url 'blog-home' %}" ><i class="fa fa-fw fa-home"></i>Home</a>
+            </p>
+            <p>   
+            <a style="color:#16A085; font-size:17px;" href="{% url 'blog-about' %}"><i class="fa fa-fw fa-info-circle"></i>&nbsp;About Us</a>    
+            </p>
+            <p>
+            <a style="color:#16A085; font-size:17px;" href="{% url 'blog-contact' %}"><i class="fa fa-fw fa-info-circle"></i>Contact Us</a>   
+            </p>
+
+        {% else %}
+            <p>
+            <a style="color:#16A085; font-size:17px;" href="{% url 'blog-home' %}" ><i class="fa fa-fw fa-home"></i>Home</a>
+            </p>
+            <p>
+            <a style="color:#16A085; font-size:17px"; href="{% url 'login' %}"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+            </p>
+            <p>  
+            <a style="color:#16A085; font-size:17px;" href="{% url 'register' %}"><i class="fa fa-registered"></i>&nbsp;Register</a>
+            </p>
+            <p>   
+            <a style="color:#16A085; font-size:17px;" href="{% url 'blog-about' %}"><i class    ="fa fa-fw fa-info-circle"></i>&nbsp;About Us</a>    
+            </p>
+            <p>
+            <a style="color:#16A085; font-size:17px;" href="{% url 'blog-contact' %}"><i class="fa fa-fw fa-info-circle"></i>Contact Us</a>
+        {% endif %}
+        
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6-footer class="text-uppercase"></h6>
+        <h5 class="text-capitalize font-weight-bold">Contact</h5>
+        
+         <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width:300px;">
+        
+        <p>
+          <i class="fa fa-address-card mr-3" ></i> Hapur, Uttar Pradesh, Republic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Of India</p>
+        <p>
+          <i class="fa fa-envelope mr-3"></i> insidestory@example.com</p>
+        <p>
+          <i class="fa fa-phone mr-3"></i> +91-9457426111</p>
+        <p>
+          <i class="fa fa-phone mr-3"></i> +91-8077818378</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center text-black-50 py-3" style="background-color: #0B5345  ;"><copyright style="color:#ffffff;">© 2019 Copyright:</copyright>
+    <a style="color:#ffffff;"  href="{% url 'blog-home' %}">InsideStory</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+	<!--  end of main.html -->
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+</body>
+</html>
